@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الكتاب - Youni</title>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .header-bg { background: rgba(136, 108, 232, 1); }
+        .active-link { background: rgba(136, 108, 232, 0.3); font-weight: 700; }
+        .nav-link { font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .review-tab {
+            padding: 12px 20px;
+            font-weight: 600;
+            color: #6B7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .review-tab.active { color: #886CE8; border-bottom-color: #886CE8; }
+        .review-tab:hover:not(.active) { color: #886CE8; }
+        .dropdown-actions {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 40px;
+            z-index: 9999;
+            min-width: 140px;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3f4f6;
+            border-radius: 12px;
+        }
+        .dropdown-actions.show { display: block; }
+        .star-filled { color: #FBBF24; }
+        .star-empty { color: #D1D5DB; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
+        <div class="flex items-center"><img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10"></div>
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center gap-4 border-l pl-4 border-white/20">
+                <div class="relative cursor-pointer">
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] rounded-full px-1">1</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=User" alt=""></div>
+                    <span class="hidden md:block text-sm font-medium">اسم المستخدم</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-white"><svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+    </header>
+
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+    <div class="flex pt-16">
+        <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
+            <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
+        </aside>
+
+        <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full">
+
+            <h1 class="text-[22px] md:text-[28px] font-bold text-gray-900 mb-2">تفاصيل الكتاب</h1>
+            <nav class="text-sm text-gray-500 mb-8 flex flex-wrap items-center gap-1">
+                <a href="#" class="hover:text-[#886CE8] transition">لوحة التحكم</a><span>&gt;</span>
+                <a href="book-ratings.html" class="hover:text-[#886CE8] transition">إدارة تقييمات الكتب</a><span>&gt;</span>
+                <span class="text-gray-800 font-medium">القتل للمبتدئين</span>
+            </nav>
+
+            <!-- Book header: cover left, info right (RTL grid) -->
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-6">
+                <div class="space-y-6 order-2 lg:order-1">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-1">القتل للمبتدئين</h2>
+                                <p class="text-gray-500 text-sm">Agatha Christie</p>
+                            </div>
+                            <span class="inline-flex items-center bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full w-fit shrink-0">نشط</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">ISBN</p>
+                                <p class="text-gray-800 font-semibold text-sm" dir="ltr">978-977-416-123-4</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">تاريخ النشر</p>
+                                <p class="text-gray-800 font-semibold text-sm">15/03/2024</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">التصنيف</p>
+                                <p class="text-gray-800 font-semibold text-sm">روايات</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">السعر</p>
+                                <p class="text-gray-800 font-semibold text-sm">45 <span class="text-gray-500 font-normal">ريال</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                            <h3 class="text-base font-bold text-gray-900 mb-4">الوصف</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                رواية بوليسية كلاسيكية من تأليف Agatha Christie، تدور أحداثها حول جريمة قتل غامضة في قرية هادئة. يتتبع المحقق هركيول بوارو الأدلة ويكشف الحقيقة خلف الظاهر الهادئ للمكان. من أشهر روايات الجريمة والتشويق في الأدب العالمي.
+                            </p>
+                        </div>
+
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                            <h3 class="text-base font-bold text-gray-900 mb-4">الملف الرقمي</h3>
+                            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-gray-900 text-sm truncate">al-qatl-lil-mubtadiin.epub</p>
+                                    <p class="text-gray-400 text-xs mt-0.5">2.4 MB · EPUB</p>
+                                </div>
+                            </div>
+                            <button class="w-full bg-[#886CE8] hover:bg-[#7758E6] text-white font-semibold h-11 rounded-xl flex items-center justify-center gap-2 transition shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                تحميل الملف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex flex-col gap-6">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex justify-center">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop" alt="القتل للمبتدئين" class="w-full max-w-[220px] rounded-xl object-cover border border-gray-100 shadow-md">
+                    </div>
+
+                    <div class="bg-[#886CE8] rounded-2xl shadow-md p-5 md:p-6 text-white">
+                        <h3 class="text-base font-bold mb-5 opacity-90">إحصائيات سريعة</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-80">متوسط التقييم</span>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <span class="font-bold">4.2</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/20 pt-4">
+                                <span class="text-sm opacity-80">إجمالي التقييمات</span>
+                                <span class="font-bold text-lg">32</span>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/20 pt-4">
+                                <span class="text-sm opacity-80">عدد القراءات</span>
+                                <span class="font-bold text-lg">1,248</span>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/20 pt-4">
+                                <span class="text-sm opacity-80">دار النشر</span>
+                                <span class="font-semibold text-sm">دار النيل للنشر</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="p-4 md:p-6 border-b border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-900 mb-5">تقييمات القرّاء</h3>
+
+                    <div class="flex items-center gap-1 border-b border-gray-200 mb-5 overflow-x-auto">
+                        <button type="button" onclick="switchReviewTab('all')" data-review-tab="all" class="review-tab active flex items-center gap-2">
+                            <span class="bg-[#886CE8] text-white text-xs px-2 py-0.5 rounded-md">32</span> الكل
+                        </button>
+                        <button type="button" onclick="switchReviewTab('approved')" data-review-tab="approved" class="review-tab flex items-center gap-2">
+                            <span class="bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-md">24</span> مقبول
+                        </button>
+                        <button type="button" onclick="switchReviewTab('rejected')" data-review-tab="rejected" class="review-tab flex items-center gap-2">
+                            <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-md">5</span> مرفوض
+                        </button>
+                        <button type="button" onclick="switchReviewTab('hidden')" data-review-tab="hidden" class="review-tab flex items-center gap-2">
+                            <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-md">3</span> مخفي
+                        </button>
+                    </div>
+
+                    <div class="relative max-w-md">
+                        <input type="text" placeholder="البحث في التقييمات..." class="w-full pr-12 pl-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#886CE8]">
+                        <svg class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="overflow-visible w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px] text-right border-collapse">
+                            <thead class="bg-[#F4F6F8]">
+                                <tr class="text-gray-500 text-sm">
+                                    <th class="p-4 font-bold">المستخدم</th>
+                                    <th class="p-4 font-bold">التقييم</th>
+                                    <th class="p-4 font-bold">التعليق</th>
+                                    <th class="p-4 font-bold">التاريخ</th>
+                                    <th class="p-4 font-bold">الحالة</th>
+                                    <th class="p-4 font-bold w-24 text-center">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-review-status="approved">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=سارة+أحمد&background=886CE8&color=fff" alt="" class="w-9 h-9 rounded-full shrink-0">
+                                            <span class="font-semibold text-gray-900">سارة أحمد</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-0.5">
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 max-w-[280px]">رواية ممتازة، أسلوب Agatha Christie السردي يخطف الأنفاس من أول صفحة.</td>
+                                    <td class="p-4 text-gray-600 font-medium whitespace-nowrap">12/05/2025</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مقبول</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                                                <span>تثبيت</span>
+                                            </button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
+                                                <span>إخفاء</span>
+                                            </button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-red-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                                                <span>حذف</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-review-status="approved">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=محمد+علي&background=6366f1&color=fff" alt="" class="w-9 h-9 rounded-full shrink-0">
+                                            <span class="font-semibold text-gray-900">محمد علي</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-0.5">
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 max-w-[280px]">قصة مشوقة لكن النهاية كانت متوقعة نوعاً ما.</td>
+                                    <td class="p-4 text-gray-600 font-medium whitespace-nowrap">08/05/2025</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مقبول</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg><span>تثبيت</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg><span>إخفاء</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-red-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg><span>حذف</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-review-status="rejected">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=فاطمة+حسن&background=ef4444&color=fff" alt="" class="w-9 h-9 rounded-full shrink-0">
+                                            <span class="font-semibold text-gray-900">فاطمة حسن</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-0.5">
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 max-w-[280px]">تعليق غير لائق يحتوي على محتوى مسيء.</td>
+                                    <td class="p-4 text-gray-600 font-medium whitespace-nowrap">02/05/2025</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">مرفوض</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg><span>تثبيت</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg><span>إخفاء</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-red-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg><span>حذف</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-review-status="hidden">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=خالد+سعيد&background=9ca3af&color=fff" alt="" class="w-9 h-9 rounded-full shrink-0">
+                                            <span class="font-semibold text-gray-900">خالد سعيد</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-0.5">
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            <svg class="w-4 h-4 star-empty" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 max-w-[280px]">تقييم مخفي من قبل الإدارة.</td>
+                                    <td class="p-4 text-gray-600 font-medium whitespace-nowrap">28/04/2025</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">مخفي</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg><span>تثبيت</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg><span>إخفاء</span></button>
+                                            <button class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-red-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg><span>حذف</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="logoutModal" class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4">
+        <div class="relative bg-white w-full max-w-[520px] rounded-[28px] px-8 py-10 shadow-2xl text-center">
+            <button onclick="closeLogoutModal()" class="absolute top-5 left-5 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6"/></svg></button>
+            <img src="imgs/icons/out.svg" class="w-14 h-14 mx-auto mb-8" alt="">
+            <h2 class="text-xl font-bold text-gray-800 mb-10">هل أنت متأكد أنك تريد تسجيل الخروج؟</h2>
+            <div class="flex gap-4"><button class="flex-1 h-14 rounded-2xl bg-[#D91E18] text-white font-bold">نعم</button><button onclick="closeLogoutModal()" class="flex-1 h-14 rounded-2xl border-2 border-gray-500 text-gray-600 font-bold">إلغاء</button></div>
+        </div>
+    </div><script>
+        renderSidebar('ratings');
+
+        function switchReviewTab(tab) {
+            document.querySelectorAll('[data-review-tab]').forEach(function (btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-review-tab') === tab);
+            });
+            document.querySelectorAll('[data-review-status]').forEach(function (row) {
+                var status = row.getAttribute('data-review-status');
+                row.classList.toggle('hidden', tab !== 'all' && status !== tab);
+            });
+        }
+    </script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('ratings');</script>
+</body>
+</html>

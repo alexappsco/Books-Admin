@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقسيم الصفحة الرئيسية - Youni</title>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .header-bg { background: rgba(136, 108, 232, 1); }
+        .active-link { background: rgba(136, 108, 232, 0.3); font-weight: 700; }
+        .nav-link { font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .section-card { transition: box-shadow 0.2s, transform 0.2s; }
+        .section-card:hover { box-shadow: 0 4px 20px rgba(136, 108, 232, 0.12); }
+        .drag-handle { cursor: grab; }
+        .drag-handle:active { cursor: grabbing; }
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            border-radius: 36px;
+            border: 8px solid #1F2937;
+            background: #fff;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        .phone-notch {
+            width: 100px;
+            height: 24px;
+            background: #1F2937;
+            border-radius: 0 0 16px 16px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
+        <div class="flex items-center"><img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10"></div>
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center gap-4 border-l pl-4 border-white/20">
+                <div class="relative cursor-pointer">
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] rounded-full px-1">1</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=User" alt=""></div>
+                    <span class="hidden md:block text-sm font-medium">اسم المستخدم</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-white"><svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+    </header>
+
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+    <div class="flex pt-16">
+        <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
+            <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
+        </aside>
+
+        <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <h1 class="text-[24px] md:text-[28px] font-bold text-gray-800">إدارة تقسيم الصفحة الرئيسية</h1>
+                <div class="flex items-center gap-3 shrink-0">
+                    <button class="bg-[#886CE8] hover:bg-[#7758E6] text-white font-semibold px-6 h-12 rounded-xl flex items-center justify-center gap-2 shadow-md transition whitespace-nowrap">
+                        حفظ التغييرات
+                    </button>
+                    <button onclick="openModal('previewOverlay')" class="h-12 px-6 rounded-xl border-2 border-[#886CE8] text-[#886CE8] font-semibold hover:bg-[#886CE8]/5 transition whitespace-nowrap">
+                        معاينة التطبيق
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6">
+                <p class="text-gray-500 text-sm mb-6">اسحب الأقسام لإعادة ترتيبها، وفعّل أو عطّل كل قسم حسب الحاجة.</p>
+
+                <div id="sectionsList" class="space-y-3">
+                    <!-- بانر -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <img src="imgs/icons/ads.svg" class="w-5 h-5" alt="">
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">بانر</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- الأقسام -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <img src="imgs/icons/manage-branch.svg" class="w-5 h-5" alt="">
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">الأقسام</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- أشهر الكتب (off) -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 opacity-75">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">أشهر الكتب</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- المؤلفون -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <img src="imgs/icons/publishers.svg" class="w-5 h-5" alt="">
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">المؤلفون</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- أبرز العروض -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <img src="imgs/icons/offers.svg" class="w-5 h-5" alt="">
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">أبرز العروض</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- دار النشر -->
+                    <div class="section-card flex items-center gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <button type="button" class="drag-handle p-2 text-gray-400 hover:text-[#886CE8] transition shrink-0" aria-label="سحب">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 11-.001 4.001A2 2 0 017 2zm0 6a2 2 0 11-.001 4.001A2 2 0 017 8zm0 6a2 2 0 11-.001 4.001A2 2 0 017 14zm6-8a2 2 0 11-.001 4.001A2 2 0 0113 6zm0 2a2 2 0 11-.001 4.001A2 2 0 0113 8zm0 6a2 2 0 11-.001 4.001A2 2 0 0113 14z"/></svg>
+                        </button>
+                        <div class="w-11 h-11 rounded-xl bg-[#886CE8]/10 flex items-center justify-center shrink-0">
+                            <img src="imgs/icons/publishers.svg" class="w-5 h-5" alt="">
+                        </div>
+                        <span class="flex-1 font-semibold text-gray-800 text-[15px]">دار النشر</span>
+                        <label class="relative inline-flex items-center cursor-pointer select-none shrink-0">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                                <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Preview Overlay -->
+    <div id="previewOverlay" class="fixed inset-0 hidden items-center justify-center bg-black/75 px-4 py-6 z-[9999] backdrop-blur-sm">
+        <div class="relative flex flex-col items-center">
+            <button onclick="closeModal('previewOverlay')" class="absolute -top-2 left-0 md:-left-12 text-white/80 hover:text-white transition z-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <p class="text-white text-lg font-semibold mb-6">معاينة الصفحة الرئيسية</p>
+
+            <div class="phone-mockup">
+                <div class="phone-notch"></div>
+                <div class="overflow-y-auto h-[calc(100%-24px)] px-3 pb-4">
+                    <!-- App header -->
+                    <div class="flex items-center justify-between py-3">
+                        <img src="imgs/logoyouni.png" alt="Youni" class="h-6" onerror="this.style.display='none'">
+                        <div class="w-7 h-7 rounded-full bg-[#886CE8]/20"></div>
+                    </div>
+
+                    <!-- Banner -->
+                    <div class="rounded-2xl overflow-hidden mb-4 h-[100px] bg-gradient-to-l from-[#886CE8] to-[#6B4FD4] flex items-center justify-center">
+                        <span class="text-white text-xs font-semibold px-3 text-center">بانر إعلاني — عروض الكتب الجديدة</span>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-4">
+                        <p class="text-[11px] font-bold text-gray-800 mb-2">الأقسام</p>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-xl bg-[#886CE8]/15 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                </div>
+                                <span class="text-[9px] text-gray-600">رواية</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-xl bg-[#886CE8]/15 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <span class="text-[9px] text-gray-600">تاريخ</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-xl bg-[#886CE8]/15 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                                </div>
+                                <span class="text-[9px] text-gray-600">علوم</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-xl bg-[#886CE8]/15 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-[#886CE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                </div>
+                                <span class="text-[9px] text-gray-600">تنمية</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Books -->
+                    <div>
+                        <p class="text-[11px] font-bold text-gray-800 mb-2">أحدث الكتب</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-gray-50">
+                                <div class="w-10 h-14 rounded-lg bg-gradient-to-b from-[#886CE8]/30 to-[#886CE8]/10 shrink-0"></div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-[10px] font-semibold text-gray-800 truncate">رواية الأيام</p>
+                                    <p class="text-[9px] text-gray-400">طه حسين</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-gray-50">
+                                <div class="w-10 h-14 rounded-lg bg-gradient-to-b from-[#886CE8]/30 to-[#886CE8]/10 shrink-0"></div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-[10px] font-semibold text-gray-800 truncate">فن اللامبالاة</p>
+                                    <p class="text-[9px] text-gray-400">مارك مانسون</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-gray-50">
+                                <div class="w-10 h-14 rounded-lg bg-gradient-to-b from-[#886CE8]/30 to-[#886CE8]/10 shrink-0"></div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-[10px] font-semibold text-gray-800 truncate">1984</p>
+                                    <p class="text-[9px] text-gray-400">جورج أورويل</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="closeModal('previewOverlay')" class="mt-6 text-white/70 hover:text-white text-sm font-medium transition">إغلاق المعاينة</button>
+        </div>
+    </div>
+
+    <div id="logoutModal" class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4">
+        <div class="relative bg-white w-full max-w-[520px] rounded-[28px] px-8 py-10 shadow-2xl text-center">
+            <button onclick="closeLogoutModal()" class="absolute top-5 left-5 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6"/></svg></button>
+            <img src="imgs/icons/out.svg" class="w-14 h-14 mx-auto mb-8" alt="">
+            <h2 class="text-xl font-bold text-gray-800 mb-10">هل أنت متأكد أنك تريد تسجيل الخروج؟</h2>
+            <div class="flex gap-4"><button class="flex-1 h-14 rounded-2xl bg-[#D91E18] text-white font-bold">نعم</button><button onclick="closeLogoutModal()" class="flex-1 h-14 rounded-2xl border-2 border-gray-500 text-gray-600 font-bold">إلغاء</button></div>
+        </div>
+    </div><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderSidebar('home-layout');
+        });
+
+        var previewOverlay = document.getElementById('previewOverlay');
+        if (previewOverlay) {
+            previewOverlay.addEventListener('click', function (e) {
+                if (e.target === previewOverlay) closeModal('previewOverlay');
+            });
+        }
+    </script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('home-layout');</script>
+</body>
+</html>

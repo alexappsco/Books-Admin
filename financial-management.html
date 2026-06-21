@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المالية - Youni</title>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .header-bg { background: rgba(136, 108, 232, 1); }
+        .active-link { background: rgba(136, 108, 232, 0.3); font-weight: 700; }
+        .nav-link { font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .dropdown-actions {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 40px;
+            z-index: 9999;
+            min-width: 140px;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3f4f6;
+            border-radius: 12px;
+        }
+        .dropdown-actions.show { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
+        <div class="flex items-center"><img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10"></div>
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center gap-4 border-l pl-4 border-white/20">
+                <div class="relative cursor-pointer">
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] rounded-full px-1">1</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=User" alt=""></div>
+                    <span class="hidden md:block text-sm font-medium">اسم المستخدم</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-white"><svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+    </header>
+
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+    <div class="flex pt-16">
+        <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
+            <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
+        </aside>
+
+        <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full">
+            <div class="mb-6">
+                <h1 class="text-[24px] md:text-[28px] font-bold text-gray-800">إدارة المالية</h1>
+                <p class="text-gray-500 text-sm mt-1">ملخص الأداء المالي للمنصة</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                    <p class="text-gray-500 text-sm mb-2">إجمالي الإيرادات</p>
+                    <div class="flex items-end justify-between gap-2">
+                        <span class="text-2xl md:text-3xl font-bold text-gray-900">245,890 <span class="text-base font-semibold text-gray-500">د.ك</span></span>
+                        <span class="text-green-600 text-sm font-semibold bg-green-50 px-2 py-1 rounded-lg">+15.3%</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                    <p class="text-gray-500 text-sm mb-2">المدفوعات المستحقة</p>
+                    <div class="flex items-end justify-between gap-2">
+                        <span class="text-2xl md:text-3xl font-bold text-gray-900">42,150 <span class="text-base font-semibold text-gray-500">د.ك</span></span>
+                        <span class="text-red-600 text-sm font-semibold bg-red-50 px-2 py-1 rounded-lg">-2.1%</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6">
+                    <p class="text-gray-500 text-sm mb-2">صافي الأرباح</p>
+                    <div class="flex items-end justify-between gap-2">
+                        <span class="text-2xl md:text-3xl font-bold text-gray-900">198,740 <span class="text-base font-semibold text-gray-500">د.ك</span></span>
+                        <span class="text-green-600 text-sm font-semibold bg-green-50 px-2 py-1 rounded-lg">+8.7%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="p-4 md:p-6 border-b border-gray-100">
+                    <div class="flex items-center gap-6 mb-6 border-b border-gray-100 overflow-x-auto pb-2">
+                        <button class="flex items-center gap-2 pb-2 px-1 text-gray-500 hover:text-purple-600 whitespace-nowrap font-semibold">
+                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-md">80</span> الكل
+                        </button>
+                        <button class="flex items-center gap-2 pb-2 px-1 border-b-2 border-gray-900 text-[rgba(33,43,54,1)] font-semibold whitespace-nowrap">
+                            <span class="bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-md">22</span> مكتمل
+                        </button>
+                        <button class="flex items-center gap-2 pb-2 px-1 text-gray-500 hover:text-purple-600 whitespace-nowrap font-semibold">
+                            <span class="bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-md">22</span> معلق
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row gap-3 lg:items-center">
+                        <div class="relative flex-1">
+                            <input type="text" placeholder="البحث في المعاملات.." class="w-full pr-12 pl-4 py-4 rounded-xl border border-gray-200 text-sm focus:outline-none">
+                            <svg class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-full lg:w-[170px] relative">
+                            <select class="w-full px-4 py-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-500 appearance-none focus:outline-none">
+                                <option>نوع المعاملة</option>
+                                <option>اشتراك</option>
+                                <option>دفع للناشر</option>
+                                <option>استرداد</option>
+                            </select>
+                            <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="w-full lg:w-[170px] relative">
+                            <select class="w-full px-4 py-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-500 appearance-none focus:outline-none">
+                                <option>الحالة</option>
+                                <option>مكتمل</option>
+                                <option>معلق</option>
+                            </select>
+                            <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="w-full lg:w-[170px] relative">
+                            <select class="w-full px-4 py-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-500 appearance-none focus:outline-none">
+                                <option>الفترة</option>
+                                <option>آخر 7 أيام</option>
+                                <option>آخر 30 يوم</option>
+                                <option>هذا العام</option>
+                            </select>
+                            <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-visible w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px] text-right border-collapse">
+                            <thead class="bg-[#F4F6F8]">
+                                <tr class="text-gray-500 text-sm">
+                                    <th class="p-4 w-14"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></th>
+                                    <th class="p-4 font-bold">دار النشر</th>
+                                    <th class="p-4 font-bold">التاريخ</th>
+                                    <th class="p-4 font-bold">المبلغ</th>
+                                    <th class="p-4 font-bold">نوع المعاملة</th>
+                                    <th class="p-4 font-bold">الحالة</th>
+                                    <th class="p-4 font-bold w-24 text-center">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=دار+النيل&background=886CE8&color=fff" alt="" class="w-10 h-10 rounded-full shrink-0 border border-gray-100">
+                                            <span class="font-semibold text-gray-900">دار النيل للنشر</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 font-medium">12/06/2025</td>
+                                    <td class="p-4 font-bold text-gray-900">4,250.00 <span class="text-gray-500 font-medium text-xs">د.ك</span></td>
+                                    <td class="p-4 text-gray-600 font-medium">دفع للناشر</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مكتمل</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                                <span>عرض</span>
+                                            </a>
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span>تحميل</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=دار+المعارف&background=3B82F6&color=fff" alt="" class="w-10 h-10 rounded-full shrink-0 border border-gray-100">
+                                            <span class="font-semibold text-gray-900">دار المعارف</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 font-medium">10/06/2025</td>
+                                    <td class="p-4 font-bold text-gray-900">1,850.00 <span class="text-gray-500 font-medium text-xs">د.ك</span></td>
+                                    <td class="p-4 text-gray-600 font-medium">اشتراك</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">معلق</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                                <span>عرض</span>
+                                            </a>
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span>تحميل</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=دار+الثقافة&background=22C55E&color=fff" alt="" class="w-10 h-10 rounded-full shrink-0 border border-gray-100">
+                                            <span class="font-semibold text-gray-900">دار الثقافة</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 font-medium">08/06/2025</td>
+                                    <td class="p-4 font-bold text-gray-900">6,720.00 <span class="text-gray-500 font-medium text-xs">د.ك</span></td>
+                                    <td class="p-4 text-gray-600 font-medium">دفع للناشر</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مكتمل</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                                <span>عرض</span>
+                                            </a>
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span>تحميل</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=دار+الأدب&background=E879F9&color=fff" alt="" class="w-10 h-10 rounded-full shrink-0 border border-gray-100">
+                                            <span class="font-semibold text-gray-900">دار الأدب العربي</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 font-medium">05/06/2025</td>
+                                    <td class="p-4 font-bold text-gray-900">980.00 <span class="text-gray-500 font-medium text-xs">د.ك</span></td>
+                                    <td class="p-4 text-gray-600 font-medium">استرداد</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">معلق</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                                <span>عرض</span>
+                                            </a>
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span>تحميل</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50/50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded border-gray-300"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=دار+العلم&background=F59E0B&color=fff" alt="" class="w-10 h-10 rounded-full shrink-0 border border-gray-100">
+                                            <span class="font-semibold text-gray-900">دار العلم والمعرفة</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-gray-600 font-medium">01/06/2025</td>
+                                    <td class="p-4 font-bold text-gray-900">3,400.00 <span class="text-gray-500 font-medium text-xs">د.ك</span></td>
+                                    <td class="p-4 text-gray-600 font-medium">اشتراك</td>
+                                    <td class="p-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مكتمل</span>
+                                    </td>
+                                    <td class="p-4 text-center relative">
+                                        <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg outline-none">
+                                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                                        </button>
+                                        <div class="dropdown-actions py-2">
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                                <span>عرض</span>
+                                            </a>
+                                            <a href="#" class="w-full text-right px-4 py-2 hover:bg-gray-100 transition flex items-center gap-3 text-gray-600">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span>تحميل</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="p-4 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-gray-100 text-sm text-gray-500 overflow-visible">
+                    <div class="flex items-center gap-6 order-2 md:order-1">
+                        <div class="flex gap-4">
+                            <button class="hover:text-purple-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                            <button class="hover:text-purple-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                        </div>
+                        <span>1-5 من 22</span>
+                        <div class="flex items-center gap-2">
+                            <span>صفوف لكل صفحة:</span>
+                            <select class="bg-transparent font-semibold outline-none"><option>10</option><option>25</option></select>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 order-1 md:order-2">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="dense" class="rounded text-purple-600">
+                            <label for="dense" class="cursor-pointer">Dense</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="logoutModal" class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4">
+        <div class="relative bg-white w-full max-w-[520px] rounded-[28px] px-8 py-10 shadow-2xl text-center">
+            <button onclick="closeLogoutModal()" class="absolute top-5 left-5 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6"/></svg></button>
+            <img src="imgs/icons/out.svg" class="w-14 h-14 mx-auto mb-8" alt="">
+            <h2 class="text-xl font-bold text-gray-800 mb-10">هل أنت متأكد أنك تريد تسجيل الخروج؟</h2>
+            <div class="flex gap-4"><button class="flex-1 h-14 rounded-2xl bg-[#D91E18] text-white font-bold">نعم</button><button onclick="closeLogoutModal()" class="flex-1 h-14 rounded-2xl border-2 border-gray-500 text-gray-600 font-bold">إلغاء</button></div>
+        </div>
+    </div>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('financial');</script>
+</body>
+</html>

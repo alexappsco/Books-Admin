@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - Youni</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Public Sans', sans-serif; }
@@ -32,7 +32,7 @@
 
     <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
         <div class="flex items-center">
-            <img src="imgs/logoyouni.png" alt="Youni" class="h-8 md:h-10 brightness-0 invert">
+            <img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10 brightness-1 ">
         </div>
 
         <div class="flex items-center gap-4 text-white">
@@ -62,80 +62,7 @@
 
     <div class="flex pt-16">
 <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
-        <nav class="mt-6 px-4 space-y-1">
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/main.svg" class="w-5 h-5" alt="">
-                    <span>الرئيسية</span>
-                </a>
-
-                <a href="branch-management.html" class="nav-link  flex items-center gap-3 p-3 rounded-xl ">
-                    <img src="imgs/icons/manage-branch.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الفروع</span>
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg> -->
-                </a>
-
-                <a href="offers.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/offers.svg" class="w-5 h-5" alt="">
-                    <span>العروض</span>
-                </a>
-
-                <a href="packagemanagement.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/managepackage.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الباقات</span>
-                </a>
-
-                <a href="follower-management.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/customer.svg" class="w-5 h-5" alt="">
-                    <span>العملاء</span>
-                </a>
-
-                <a href="managementemployes.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/manageemploye.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الموظفين</span>
-                </a>
-
-                <a href="ads.html" class="nav-link flex items-center gap-3 p-3 rounded-xl active-link text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/ads.svg" class="w-5 h-5" alt="">
-                    <span>الاعلانات</span>
-                </a>
-
-                <a href=" #" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/reports.svg" class="w-5 h-5" alt="">
-                    <span>التقارير</span>
-                </a>
-
-                <a href="support.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/suport.svg" class="w-5 h-5" alt="">
-                    <span>الدعم الفني</span>
-                </a>
-                <a href="financial-portfolio.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/money.svg" class="w-5 h-5" alt="">
-                    <span>المحفظة المالية</span>
-                </a>
-                <div class=" border-purple-200">
-                    <a href="code.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                        <img src="imgs/icons/code-side.svg" class="w-5 h-5" alt="">
-                        <span>التحقق من الاكواد</span>
-                    </a>
-                    <a href="code.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                        <img src="imgs/icons/profile.svg" class="w-5 h-5" alt="">
-                        <span>الملف الشخصي</span>
-                    </a>
-                    <a
-    href="#"
-    onclick="openLogoutModal()"
-    class="nav-link flex items-center gap-3 p-3 rounded-xl text-red-500 hover:bg-red-50 mt-2 transition"
->
-    <img src="imgs/icons/logout.svg" class="w-5 h-5" alt="">
-
-    <span>
-        تسجيل الخروج
-    </span>
-</a>
-                </div>
-            </nav>
+        <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
         </aside>
 
         <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full overflow-x-hidden">
@@ -143,7 +70,7 @@
     <div class="flex flex-row justify-between items-center gap-3 mb-8">
 
     <h1 class="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-800 whitespace-nowrap">
-        الاعلانات
+        البانرات
     </h1>
 
     <button
@@ -238,8 +165,8 @@
                             </div>
                         </th>
                         <th class="p-4 font-bold text-center">الصورة</th>
-                        <th class="p-4 font-bold">الكود</th>
-                        <th class="p-4 font-bold">تاريخ الإنشاء</th>
+                        <th class="p-4 font-bold">تاريخ البدء</th>
+                        <th class="p-4 font-bold">تاريخ الانتهاء</th>
                         <th class="p-4 font-bold">الحالة</th>
                         <th class="p-4 font-bold text-center w-28">الإجراءات</th>
                     </tr>
@@ -275,10 +202,11 @@
         </div>
     </td>
 
-    <td class="p-4 text-[16px] font-medium text-[#374151] whitespace-nowrap">
-        #134-456
-    </td>
 
+
+    <td class="p-4 text-[16px] font-medium text-[#374151] whitespace-nowrap">
+        10/2/2026
+    </td>
     <td class="p-4 text-[16px] font-medium text-[#374151] whitespace-nowrap">
         10/2/2026
     </td>
@@ -380,7 +308,7 @@
     </td>
 
     <td class="p-4 text-[16px] font-medium text-[#374151] whitespace-nowrap">
-        #134-456
+        10/2/2026
     </td>
 
     <td class="p-4 text-[16px] font-medium text-[#374151] whitespace-nowrap">
@@ -487,32 +415,7 @@
 </main>
     </div>
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('translate-x-full');
-            overlay.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
-        function toggleActions(event) {
-            event.stopPropagation();
-            const allMenus = document.querySelectorAll('.dropdown-actions');
-            const currentMenu = event.currentTarget.nextElementSibling;
-            
-            allMenus.forEach(menu => {
-                if(menu !== currentMenu) menu.classList.remove('show');
-            });
-            currentMenu.classList.toggle('show');
-        }
-
-        window.onclick = function() {
-            document.querySelectorAll('.dropdown-actions').forEach(menu => menu.classList.remove('show'));
-        }
-    </script>
-
-<!-- Modal Add -->
+    <!-- Modal Add -->
 <!-- Modal -->
 <div 
     id="addAdModal" 
@@ -525,7 +428,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between px-6 sm:px-8 py-4 border-b border-gray-100 bg-white">
              <h2 class="text-xl sm:text-2xl font-bold text-[#1F2937]">
-               إضافة إعلان
+               إضافة بانر
             </h2>
              <!-- Close Button -->
              <button 
@@ -541,16 +444,16 @@
             
             <div class="mb-5">
                 <label class="block text-[15px] font-semibold text-[#1F2937] mb-3 text-right">
-                    صورة الإعلان
+                    إرفاق الصورة
                 </label>
 
                 <label 
                     class="w-full rounded-[20px]
-                    border border-dashed border-[rgba(145,158,171,0.2)]
+                    border border-dashed border-[rgba(145,158,171,0.32)]
                     bg-[rgba(145,158,171,0.08)]
                     min-h-[180px] sm:min-h-[220px]
                     flex flex-col items-center justify-center
-                    text-center cursor-pointer transition-all
+                    text-center cursor-pointer transition-all hover:bg-[rgba(145,158,171,0.12)]
                     px-6 py-6"
                 >
                     <input type="file" class="hidden" accept="image/*">
@@ -561,39 +464,46 @@
                         class="w-[100px] sm:w-[140px] max-w-full mb-4"
                     >
 
-                    <h3 class="text-[18px] font-bold leading-none mb-2">تحديد الملف</h3>
-                    <p class="text-[#637381] text-xs leading-5 font-normal">
-                        اسحب الملفات هنا أو انقر للاستعراض
+                    <h3 class="text-[18px] font-bold leading-none mb-2 text-[#1F2937]">اختر الصورة</h3>
+                    <p class="text-[#637381] text-sm leading-5 font-normal">
+                        اسحب وأفلت الملفات هنا أو
+                        <span class="text-[#2065D1] font-medium">تصفح البيانات</span>
                     </p>
                 </label>
             </div>
 
             <div class="grid grid-cols-1 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold text-[#374151] mb-1.5 text-right">الاسم</label>
-                    <input type="text" placeholder="مثال: عرض نهاية الأسبوع" class="w-full h-11 sm:h-[50px] rounded-xl border border-gray-200 bg-gray-50/50 px-4 text-right text-sm focus:outline-none focus:ring-2 focus:ring-[#886CE8]/20 focus:border-[#886CE8]">
+                <div class="relative">
+                    <input type="text" placeholder="تاريخ النهاية" class="w-full h-11 sm:h-[50px] rounded-xl border border-gray-200 bg-gray-50/50 pr-11 pl-4 text-right text-sm focus:outline-none focus:ring-2 focus:ring-[#886CE8]/20 focus:border-[#886CE8]">
+                    <img src="imgs/icons/date.svg" alt="date" class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50 pointer-events-none">
                 </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-[#374151] mb-1.5 text-right">الكود</label>
-                    <input type="text" placeholder="AD-12345" class="w-full h-11 sm:h-[50px] rounded-xl border border-gray-200 bg-gray-50/50 px-4 text-right text-sm focus:outline-none">
+                <div class="relative">
+                    <input type="text" placeholder="تاريخ البداية" class="w-full h-11 sm:h-[50px] rounded-xl border border-gray-200 bg-gray-50/50 pr-11 pl-4 text-right text-sm focus:outline-none focus:ring-2 focus:ring-[#886CE8]/20 focus:border-[#886CE8]">
+                    <img src="imgs/icons/date.svg" alt="date" class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50 pointer-events-none">
                 </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-[#374151] mb-1.5 text-right">الوصف</label>
-                    <textarea rows="2" placeholder="اكتب وصفاً جذاباً..." class="w-full rounded-xl border border-gray-200 bg-gray-50/50 p-3 text-right text-sm resize-none focus:outline-none"></textarea>
+                <div class="flex items-center justify-between pt-1">
+                    <span class="text-[15px] font-semibold text-[#1F2937]">حالة البانر</span>
+                    <label class="relative inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-[76px] h-[34px] rounded-full bg-[#C4CDD5] peer-checked:bg-[#22C55E] transition-colors duration-300 relative">
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white text-[12px] font-semibold opacity-0 peer-checked:opacity-100 transition-opacity z-10 pointer-events-none">مفعل</span>
+                            <div class="absolute top-[3px] right-[3px] w-7 h-7 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:right-[calc(100%-31px)]"></div>
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="px-6 sm:px-8 py-4 border-t border-gray-100 bg-gray-50/50 flex flex-row-reverse gap-3">
-            <button class="flex-1 sm:flex-none sm:w-[140px] h-11 bg-[#886CE8] text-white font-semibold rounded-xl hover:bg-[#7758E6] transition shadow-md active:scale-95">
+        <div class="px-6 sm:px-8 py-4 border-t border-gray-100 bg-white flex justify-end gap-3">
+            <button class="sm:w-[120px] h-11 bg-[#886CE8] text-white font-semibold rounded-xl hover:bg-[#7758E6] transition shadow-md active:scale-95">
                 إضافة
             </button>
             <button
                 onclick="closeAddAdModal()"
-                class="flex-1 sm:flex-none sm:w-[140px] h-11 bg-white text-[rgba(255,95,87,1)] font-semibold rounded-xl hover:bg-red-50 transition active:scale-95 border-2 border-[rgba(255,95,87,1)]"
+                class="sm:w-[120px] h-11 bg-white text-[#637381] font-semibold rounded-xl hover:bg-gray-50 transition active:scale-95 border border-gray-300"
             >
                 إلغاء
             </button>
@@ -919,39 +829,6 @@
 
 </div>
 
-<script>
-function openLogoutModal() {
-
-    const modal = document.getElementById("logoutModal");
-
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-
-    document.body.style.overflow = "hidden";
-}
-
-function closeLogoutModal() {
-
-    const modal = document.getElementById("logoutModal");
-
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-
-    document.body.style.overflow = "auto";
-}
-
-// CLOSE WHEN CLICK OUTSIDE
-document
-    .getElementById("logoutModal")
-    .addEventListener("click", function (e) {
-
-        if (e.target === this) {
-
-            closeLogoutModal();
-        }
-
-    });
-</script>
 <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="fixed inset-0 z-[150] hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
     <div class="bg-white rounded-[32px] w-full max-w-md overflow-hidden shadow-2xl transform transition-all">
@@ -1006,5 +883,8 @@ function confirmDelete() {
     closeDeleteModal();
 }
 </script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('ads');</script>
 </body>
 </html>

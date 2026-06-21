@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرباح دار النشر - Youni</title>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .header-bg { background: rgba(136, 108, 232, 1); }
+        .active-link { background: rgba(136, 108, 232, 0.3); font-weight: 700; }
+        .nav-link { font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .publisher-tab { padding: 12px 20px; font-weight: 600; color: #6B7280; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+        .publisher-tab.active { color: #886CE8; border-bottom-color: #886CE8; }
+        .publisher-tab:hover:not(.active) { color: #886CE8; }
+        .sub-tab { padding: 10px 18px; font-weight: 600; font-size: 14px; color: #6B7280; border-bottom: 2px solid transparent; white-space: nowrap; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; }
+        .sub-tab.active { color: #886CE8; border-bottom-color: #886CE8; }
+        .profit-panel { display: none; }
+        .profit-panel.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
+        <div class="flex items-center"><img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10"></div>
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center gap-4 border-l pl-4 border-white/20">
+                <div class="relative cursor-pointer">
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] rounded-full px-1">1</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=User" alt=""></div>
+                    <span class="hidden md:block text-sm font-medium">اسم المستخدم</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-white"><svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+    </header>
+
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+    <div class="flex pt-16">
+        <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
+            <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
+        </aside>
+
+        <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full">
+
+            <h1 class="text-[22px] md:text-[26px] font-bold text-gray-900 mb-2">تفاصيل دار النشر</h1>
+            <nav class="text-sm text-gray-500 mb-4 flex flex-wrap items-center gap-1">
+                <a href="#" class="hover:text-[#886CE8]">لوحة التحكم</a><span>/</span>
+                <a href="publishers-management.html" class="hover:text-[#886CE8]">إدارة دور النشر</a><span>/</span>
+                <span class="text-gray-800 font-medium">تفاصيل دار النشر</span>
+            </nav>
+
+            <div class="mb-6 text-left">
+                <button class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 h-11 rounded-xl shadow-sm transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                    تعطيل دار النشر
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6 mb-6">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 flex-1">
+                        <img src="https://ui-avatars.com/api/?name=DN&background=111827&color=fbbf24&size=128&bold=true" alt="" class="w-[88px] h-[88px] rounded-2xl object-cover shrink-0">
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">دار النيل للنشر والتوزيع</h2>
+                            <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-2">
+                                <span>365 كتاب</span><span>·</span><span>منذ 2022</span>
+                            </div>
+                            <span class="inline-flex bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">نشط</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-green-500 after:content-[''] after:absolute after:top-[2px] after:right-[2px] peer-checked:after:-translate-x-full after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                        </label>
+                        <a href="edit-publisher.html" class="bg-[#1e3a5f] hover:bg-[#152a45] text-white font-semibold px-8 h-11 rounded-xl flex items-center">تعديل</a>
+                        <button class="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1 border-b border-gray-200 mb-4 overflow-x-auto">
+                <a href="publisher-details.html" class="publisher-tab">تفاصيل</a>
+                <a href="publisher-books.html" class="publisher-tab">الكتب المنشورة</a>
+                <a href="publisher-profits.html" class="publisher-tab active">الأرباح</a>
+            </div>
+
+            <div class="flex items-center gap-2 border-b border-gray-100 mb-6 overflow-x-auto" id="subTabs">
+                <button type="button" class="sub-tab" data-panel="subscription">كتب ضمن خطة اشتراك</button>
+                <button type="button" class="sub-tab" data-panel="free">كتب مجانية</button>
+                <button type="button" class="sub-tab active" data-panel="sold">كتب مباعة</button>
+            </div>
+
+            <!-- كتب مباعة -->
+            <div id="panel-sold" class="profit-panel active">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[1000px] text-right border-collapse">
+                            <thead class="bg-[#F4F6F8]">
+                                <tr class="text-gray-500 text-sm">
+                                    <th class="p-4 w-12"><input type="checkbox" class="w-4 h-4 rounded"></th>
+                                    <th class="p-4 font-bold">اسم الكتاب</th>
+                                    <th class="p-4 font-bold">التصنيف</th>
+                                    <th class="p-4 font-bold">تاريخ الإضافة</th>
+                                    <th class="p-4 font-bold">سعر الكتاب</th>
+                                    <th class="p-4 font-bold">عدد الكتب المباعة</th>
+                                    <th class="p-4 font-bold">إجمالي المبيعات</th>
+                                    <th class="p-4 font-bold">صافي الأرباح</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm" id="soldTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4 border-t border-gray-100 text-sm text-gray-500">
+                        <span>1–5 من 12</span>
+                        <div class="flex items-center gap-2">
+                            <span>صفوف لكل صفحة:</span>
+                            <select class="border border-gray-200 rounded-lg px-2 py-1 text-sm"><option>10</option></select>
+                            <button class="w-8 h-8 rounded-lg border border-gray-200 hover:bg-gray-50">&lt;</button>
+                            <button class="w-8 h-8 rounded-lg border border-gray-200 hover:bg-gray-50">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كتب ضمن خطة اشتراك -->
+            <div id="panel-subscription" class="profit-panel">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px] text-right border-collapse">
+                            <thead class="bg-[#F4F6F8]">
+                                <tr class="text-gray-500 text-sm">
+                                    <th class="p-4 w-12"><input type="checkbox" class="w-4 h-4 rounded"></th>
+                                    <th class="p-4 font-bold">اسم الكتاب</th>
+                                    <th class="p-4 font-bold">التصنيف</th>
+                                    <th class="p-4 font-bold">تاريخ الإضافة</th>
+                                    <th class="p-4 font-bold">عدد القراءات</th>
+                                    <th class="p-4 font-bold">صافي الأرباح</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm" id="subscriptionTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- كتب مجانية -->
+            <div id="panel-free" class="profit-panel">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px] text-right border-collapse">
+                            <thead class="bg-[#F4F6F8]">
+                                <tr class="text-gray-500 text-sm">
+                                    <th class="p-4 w-12"><input type="checkbox" class="w-4 h-4 rounded"></th>
+                                    <th class="p-4 font-bold">اسم الكتاب</th>
+                                    <th class="p-4 font-bold">التصنيف</th>
+                                    <th class="p-4 font-bold">تاريخ الإضافة</th>
+                                    <th class="p-4 font-bold">عدد التحميلات</th>
+                                    <th class="p-4 font-bold">صافي الأرباح</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm" id="freeTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="logoutModal" class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4">
+        <div class="relative bg-white w-full max-w-[520px] rounded-[28px] px-8 py-10 shadow-2xl text-center">
+            <button onclick="closeLogoutModal()" class="absolute top-5 left-5 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6"/></svg></button>
+            <h2 class="text-xl font-bold text-gray-800 mb-10">هل أنت متأكد أنك تريد تسجيل الخروج؟</h2>
+            <div class="flex gap-4"><button class="flex-1 h-14 rounded-2xl bg-[#D91E18] text-white font-bold">نعم</button><button onclick="closeLogoutModal()" class="flex-1 h-14 rounded-2xl border-2 border-gray-500 text-gray-600 font-bold">إلغاء</button></div>
+        </div>
+    </div><script src="js/rich-editor.js"></script>
+    <script src="js/publisher-shared.js"></script>
+    <script>
+        const bookImg = 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=80&h=110&fit=crop';
+
+        function bookCell(title, author) {
+            return `<td class="p-4"><div class="flex items-center gap-3">
+                <img src="${bookImg}" alt="" class="w-10 h-14 rounded-md object-cover shrink-0">
+                <div><p class="font-semibold text-gray-800">${title}</p><p class="text-xs text-gray-400">${author}</p></div>
+            </div></td>`;
+        }
+
+        const soldRows = [
+            ['رواية - القتل للمبدعين', 'أحمد خالد', 'أدب', '4/2/2024', '120.00 ر.س', '20', '2,400 ر.س', '50.00 ر.س'],
+            ['أفضلنا فينا', 'محمد حسن', 'أدب', '12/1/2024', '95.00 ر.س', '35', '3,325 ر.س', '72.50 ر.س'],
+            ['رحلة في عالم التقنية', 'سارة علي', 'تقنية', '8/3/2024', '80.00 ر.س', '48', '3,840 ر.س', '88.00 ر.س'],
+            ['ثلاثية غرناطة', 'رضوى عاشور', 'تاريخ', '22/6/2023', '110.00 ر.س', '15', '1,650 ر.س', '42.00 ر.س'],
+            ['الحرافيش', 'نجيب محفوظ', 'أدب', '5/11/2023', '130.00 ر.س', '28', '3,640 ر.س', '65.00 ر.س'],
+        ];
+
+        document.getElementById('soldTableBody').innerHTML = soldRows.map(r => `
+            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded"></td>
+                ${bookCell(r[0], r[1])}
+                <td class="p-4 text-gray-600">${r[2]}</td>
+                <td class="p-4 text-gray-600">${r[3]}</td>
+                <td class="p-4 text-gray-600">${r[4]}</td>
+                <td class="p-4 text-gray-600 font-medium">${r[5]}</td>
+                <td class="p-4 text-gray-800 font-semibold">${r[6]}</td>
+                <td class="p-4 text-green-600 font-bold">${r[7]}</td>
+            </tr>`).join('');
+
+        const subRows = [
+            ['زقاق المدق', 'نجيب محفوظ', 'أدب', '15/3/2024', '12,450', '320.00 ج.م'],
+            ['عزازيل', 'يوسف زيدان', 'أدب', '3/2/2024', '9,820', '280.00 ج.م'],
+        ];
+        document.getElementById('subscriptionTableBody').innerHTML = subRows.map(r => `
+            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded"></td>
+                ${bookCell(r[0], r[1])}
+                <td class="p-4 text-gray-600">${r[2]}</td>
+                <td class="p-4 text-gray-600">${r[3]}</td>
+                <td class="p-4 text-gray-600">${r[4]}</td>
+                <td class="p-4 text-green-600 font-bold">${r[5]}</td>
+            </tr>`).join('');
+
+        const freeRows = [
+            ['مقدمة في البرمجة', 'خالد يوسف', 'تقنية', '1/5/2024', '5,200', '0.00 ج.م'],
+            ['دليل القراءة السريعة', 'منى أحمد', 'تطوير ذات', '18/4/2024', '3,890', '0.00 ج.م'],
+        ];
+        document.getElementById('freeTableBody').innerHTML = freeRows.map(r => `
+            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                <td class="p-4"><input type="checkbox" class="w-4 h-4 rounded"></td>
+                ${bookCell(r[0], r[1])}
+                <td class="p-4 text-gray-600">${r[2]}</td>
+                <td class="p-4 text-gray-600">${r[3]}</td>
+                <td class="p-4 text-gray-600">${r[4]}</td>
+                <td class="p-4 text-green-600 font-bold">${r[5]}</td>
+            </tr>`).join('');
+
+        document.getElementById('subTabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('.sub-tab');
+            if (!btn) return;
+            document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.profit-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+        });
+    </script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('authors');</script>
+</body>
+</html>

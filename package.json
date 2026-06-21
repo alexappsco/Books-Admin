@@ -1,0 +1,16 @@
+{
+  "name": "books",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
+    "build:css": "tailwindcss -i ./src/input.css -o ./css/output.css",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
+    "start": "pnpm run build && serve .",
+    "dev": "concurrently \"pnpm run watch:css\" \"serve .\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "serve": "^14.2.4",
+    "tailwindcss": "^3.4.17"
+  }
+}

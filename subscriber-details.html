@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المشترك - Youni</title>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .header-bg { background: rgba(136, 108, 232, 1); }
+        .active-link { background: rgba(136, 108, 232, 0.3); font-weight: 700; }
+        .nav-link { font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .subscriber-tab { padding: 12px 20px; font-weight: 600; color: #6B7280; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; }
+        .subscriber-tab.active { color: #886CE8; border-bottom-color: #886CE8; }
+        .subscriber-tab:hover:not(.active) { color: #886CE8; }
+        .dropdown-actions {
+            display: none; position: absolute; left: 0; top: 40px; z-index: 9999;
+            min-width: 140px; background: white;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid #f3f4f6; border-radius: 12px;
+        }
+        .dropdown-actions.show { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
+        <div class="flex items-center"><img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10"></div>
+        <div class="flex items-center gap-4 text-white">
+            <div class="flex items-center gap-4 border-l pl-4 border-white/20">
+                <div class="relative cursor-pointer">
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] rounded-full px-1">1</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden"><img src="https://ui-avatars.com/api/?name=User" alt=""></div>
+                    <span class="hidden md:block text-sm font-medium">اسم المستخدم</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-white"><svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+    </header>
+
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+    <div class="flex pt-16">
+        <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
+            <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
+        </aside>
+
+        <main class="flex-1 md:mr-64 p-4 md:p-8 min-h-screen w-full bg-[#F3F3F3]">
+
+            <h1 class="text-[22px] md:text-[28px] font-bold text-gray-900 mb-2">تفاصيل المشترك</h1>
+            <nav class="text-sm text-gray-500 mb-6 flex flex-wrap items-center gap-1">
+                <a href="#" class="hover:text-[#886CE8] transition">لوحة التحكم</a><span>/</span>
+                <a href="platform-users-management.html" class="hover:text-[#886CE8] transition">إدارة المستخدمين</a><span>/</span>
+                <span class="text-gray-800 font-medium">تفاصيل المشترك</span>
+            </nav>
+
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <div></div>
+                <div class="flex items-center gap-3">
+                    <button onclick="openNotesPanel()" class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-semibold px-5 h-11 rounded-xl shadow-sm transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        ملاحظات المشترك
+                    </button>
+                    <button onclick="openBlockModal()" class="inline-flex items-center gap-2 bg-[#EF4444] hover:bg-[#DC2626] text-white font-semibold px-5 h-11 rounded-xl shadow-sm transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                        حظر المستخدم
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-6 mb-6">
+                <div class="flex flex-col lg:flex-row items-start gap-6">
+                    <img src="https://ui-avatars.com/api/?name=أحمد+محمد&background=886CE8&color=fff&size=128" alt="أحمد محمد" class="w-[100px] h-[100px] rounded-2xl object-cover shrink-0 border border-gray-100">
+                    <div class="flex-1 w-full">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-1">أحمد محمد</h2>
+                                <p class="text-gray-500 text-sm">معرّف المستخدم: <span class="font-mono text-gray-700" dir="ltr">#USR-28491</span></p>
+                            </div>
+                            <span class="inline-flex items-center bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full w-fit">نشط</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">رقم الجوال</p>
+                                <p class="text-gray-800 font-semibold" dir="ltr">+966 50 123 4567</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">البريد الإلكتروني</p>
+                                <p class="text-gray-800 font-semibold" dir="ltr">ahmed.mohamed@email.com</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">تاريخ الانضمام</p>
+                                <p class="text-gray-800 font-semibold">15/03/2024</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-gray-400 text-xs mb-1">الموقع</p>
+                                <p class="text-gray-800 font-semibold">الرياض، السعودية</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex items-center gap-1 border-b border-gray-200 mb-6 overflow-x-auto">
+                <button type="button" data-subscriber-tab-btn="tab-data" onclick="switchSubscriberTab('tab-data')" class="subscriber-tab active">بيانات المشترك</button>
+                <button type="button" data-subscriber-tab-btn="tab-subscriptions" onclick="switchSubscriberTab('tab-subscriptions')" class="subscriber-tab">الاشتراكات الحالية</button>
+                <button type="button" data-subscriber-tab-btn="tab-reading" onclick="switchSubscriberTab('tab-reading')" class="subscriber-tab">سجل القراءات الأخير</button>
+            </div>
+
+            <!-- Tab: بيانات المشترك -->
+            <div id="tab-data" data-subscriber-tab class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 md:p-8">
+                <h3 class="text-lg font-bold text-gray-900 mb-6">المعلومات الأساسية</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">الاسم الكامل</span>
+                        <span class="text-gray-800 font-medium text-sm">أحمد محمد علي</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">الجنس</span>
+                        <span class="text-gray-800 font-medium text-sm">ذكر</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">تاريخ الميلاد</span>
+                        <span class="text-gray-800 font-medium text-sm">12/05/1995</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">اللغة المفضلة</span>
+                        <span class="text-gray-800 font-medium text-sm">العربية</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">آخر دخول</span>
+                        <span class="text-gray-800 font-medium text-sm">منذ ساعتين</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500 text-sm">عدد الكتب المقروءة</span>
+                        <span class="text-gray-800 font-medium text-sm">47 كتاب</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: الاشتراكات الحالية -->
+            <div id="tab-subscriptions" data-subscriber-tab class="hidden bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[700px] text-right border-collapse">
+                        <thead class="bg-[#F4F6F8]">
+                            <tr class="text-gray-500 text-sm">
+                                <th class="p-4 font-bold">الباقة</th>
+                                <th class="p-4 font-bold">تاريخ البدء</th>
+                                <th class="p-4 font-bold">تاريخ الانتهاء</th>
+                                <th class="p-4 font-bold">السعر</th>
+                                <th class="p-4 font-bold">الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                                <td class="p-4 font-semibold text-gray-900">الباقة الذهبية</td>
+                                <td class="p-4 text-gray-600">01/01/2025</td>
+                                <td class="p-4 text-gray-600">01/01/2026</td>
+                                <td class="p-4 text-gray-600">199 ريال</td>
+                                <td class="p-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">نشط</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                                <td class="p-4 font-semibold text-gray-900">الباقة الأساسية</td>
+                                <td class="p-4 text-gray-600">15/03/2024</td>
+                                <td class="p-4 text-gray-600">15/03/2025</td>
+                                <td class="p-4 text-gray-600">99 ريال</td>
+                                <td class="p-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">منتهي</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: سجل القراءات -->
+            <div id="tab-reading" data-subscriber-tab class="hidden bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[800px] text-right border-collapse">
+                        <thead class="bg-[#F4F6F8]">
+                            <tr class="text-gray-500 text-sm">
+                                <th class="p-4 font-bold">الكتاب</th>
+                                <th class="p-4 font-bold">التاريخ</th>
+                                <th class="p-4 font-bold">قيمة القراءة</th>
+                                <th class="p-4 font-bold">الحالة</th>
+                                <th class="p-4 font-bold w-16 text-center">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://ui-avatars.com/api/?name=كتاب&background=E5E7EB&color=374151&size=64" alt="" class="w-10 h-10 rounded-lg shrink-0">
+                                        <span class="font-medium text-gray-900">رواية الفراشة</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-gray-600">16/06/2025</td>
+                                <td class="p-4 text-gray-600 font-bold">85%</td>
+                                <td class="p-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مكتمل</span></td>
+                                <td class="p-4 text-center relative">
+                                    <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
+                                    <div class="dropdown-actions py-2">
+                                        <button class="w-full text-right px-4 py-2 hover:bg-gray-100 text-gray-600 text-sm">عرض التفاصيل</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://ui-avatars.com/api/?name=علم&background=DBEAFE&color=1D4ED8&size=64" alt="" class="w-10 h-10 rounded-lg shrink-0">
+                                        <span class="font-medium text-gray-900">علم النفس الحديث</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-gray-600">14/06/2025</td>
+                                <td class="p-4 text-gray-600 font-bold">42%</td>
+                                <td class="p-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">قيد القراءة</span></td>
+                                <td class="p-4 text-center relative">
+                                    <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
+                                    <div class="dropdown-actions py-2">
+                                        <button class="w-full text-right px-4 py-2 hover:bg-gray-100 text-gray-600 text-sm">عرض التفاصيل</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-50 hover:bg-gray-50/50">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://ui-avatars.com/api/?name=تاريخ&background=FEF3C7&color=D97706&size=64" alt="" class="w-10 h-10 rounded-lg shrink-0">
+                                        <span class="font-medium text-gray-900">تاريخ الحضارات</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-gray-600">10/06/2025</td>
+                                <td class="p-4 text-gray-600 font-bold">100%</td>
+                                <td class="p-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">مكتمل</span></td>
+                                <td class="p-4 text-center relative">
+                                    <button onclick="toggleActions(event)" class="p-2 hover:bg-gray-100 rounded-lg"><svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg></button>
+                                    <div class="dropdown-actions py-2">
+                                        <button class="w-full text-right px-4 py-2 hover:bg-gray-100 text-gray-600 text-sm">عرض التفاصيل</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 flex justify-between items-center border-t border-gray-100 text-sm text-gray-500">
+                    <span>1-3 من 47</span>
+                    <div class="flex gap-2">
+                        <button class="hover:text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
+                        <button class="hover:text-purple-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Notes Overlay -->
+    <div id="notesOverlay" onclick="closeNotesPanel()" class="fixed inset-0 bg-black/40 z-[200] hidden"></div>
+
+    <!-- Notes Slide-out Panel -->
+    <aside id="notesPanel" class="fixed top-0 left-0 h-full w-full max-w-[420px] bg-white z-[210] shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="flex items-center justify-between p-5 border-b border-gray-100">
+            <h2 class="text-lg font-bold text-gray-900">ملاحظات المشترك</h2>
+            <button onclick="closeNotesPanel()" class="text-gray-400 hover:text-gray-600 p-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <div class="p-5 border-b border-gray-100">
+            <textarea rows="3" placeholder="اكتب ملاحظة جديدة..." class="w-full rounded-xl border border-gray-200 p-4 text-sm resize-none focus:outline-none focus:border-[#886CE8]"></textarea>
+            <button class="mt-3 w-full bg-[#886CE8] hover:bg-[#7758E6] text-white font-semibold h-11 rounded-xl transition">إضافة</button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-5 space-y-4">
+            <div class="bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4">
+                <p class="text-gray-800 text-sm leading-relaxed mb-3">المشترك يفضل التواصل عبر البريد الإلكتروني. لديه استفسار عن تجديد الباقة الذهبية.</p>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span class="font-medium text-gray-700">محمد الأحمد - موظف الدعم</span>
+                    <span>منذ ساعتين</span>
+                </div>
+            </div>
+            <div class="bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4">
+                <p class="text-gray-800 text-sm leading-relaxed mb-3">تم التواصل مع المشترك بخصوص مشكلة في تسجيل الدخول وتم حلها.</p>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span class="font-medium text-gray-700">سارة خالد - مدير الحسابات</span>
+                    <span>12/06/2025 - 10:30 ص</span>
+                </div>
+            </div>
+            <div class="bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4">
+                <p class="text-gray-800 text-sm leading-relaxed mb-3">مشترك مميز - يقرأ بمعدل 5 كتب شهرياً.</p>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span class="font-medium text-gray-700">أحمد سالم - مشرف</span>
+                    <span>01/05/2025</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Block User Modal -->
+    <div id="blockModal" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-[28px] w-full max-w-md p-8 shadow-2xl text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">حظر المستخدم</h3>
+            <p class="text-gray-500 text-sm mb-8">هل أنت متأكد من حظر أحمد محمد؟ لن يتمكن من الوصول إلى المنصة.</p>
+            <div class="flex gap-3">
+                <button onclick="closeBlockModal()" class="flex-1 h-12 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition">إلغاء</button>
+                <button onclick="closeBlockModal()" class="flex-1 h-12 rounded-xl bg-[#EF4444] text-white font-bold hover:bg-[#DC2626] transition">حظر</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4">
+        <div class="relative bg-white w-full max-w-[520px] rounded-[28px] px-8 py-10 shadow-2xl text-center">
+            <button onclick="closeLogoutModal()" class="absolute top-5 left-5 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6L18 18M6 18L18 6"/></svg></button>
+            <img src="imgs/icons/out.svg" class="w-14 h-14 mx-auto mb-8" alt="">
+            <h2 class="text-xl font-bold text-gray-800 mb-10">هل أنت متأكد أنك تريد تسجيل الخروج؟</h2>
+            <div class="flex gap-4"><button class="flex-1 h-14 rounded-2xl bg-[#D91E18] text-white font-bold">نعم</button><button onclick="closeLogoutModal()" class="flex-1 h-14 rounded-2xl border-2 border-gray-500 text-gray-600 font-bold">إلغاء</button></div>
+        </div>
+    </div><script src="js/subscriber-shared.js"></script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('users');</script>
+</body>
+</html>
+

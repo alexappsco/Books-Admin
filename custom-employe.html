@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - Youni</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Public Sans', sans-serif; }
@@ -32,7 +32,7 @@
 
     <header class="header-bg h-16 w-full flex items-center justify-between px-4 md:px-8 fixed top-0 z-[100]">
         <div class="flex items-center">
-            <img src="imgs/logoyouni.png" alt="Youni" class="h-8 md:h-10 brightness-0 invert">
+            <img src="imgs/logoHeader.png" alt="Youni" class="h-8 md:h-10 brightness-1 ">
         </div>
 
         <div class="flex items-center gap-4 text-white">
@@ -62,73 +62,7 @@
 
     <div class="flex pt-16">
 <aside id="sidebar" class="w-64 h-[calc(100vh-64px)] fixed right-0 top-16 z-[90] overflow-y-auto transition-transform duration-300 md:translate-x-0 translate-x-full shadow-2xl md:shadow-none bg-white md:bg-[rgba(136,108,232,0.1)]">
-        <nav class="mt-6 px-4 space-y-1">
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/main.svg" class="w-5 h-5" alt="">
-                    <span>الرئيسية</span>
-                </a>
-
-                <a href="#" class="nav-link active-link flex items-center gap-3 p-3 rounded-xl text-purple-800">
-                    <img src="imgs/icons/manage-branch.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الفروع</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/offers.svg" class="w-5 h-5" alt="">
-                    <span>العروض</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/managepackage.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الباقات</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/customer.svg" class="w-5 h-5" alt="">
-                    <span>العملاء</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/manageemploye.svg" class="w-5 h-5" alt="">
-                    <span>إدارة الموظفين</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/ads.svg" class="w-5 h-5" alt="">
-                    <span>الاعلانات</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/reports.svg" class="w-5 h-5" alt="">
-                    <span>التقارير</span>
-                </a>
-
-                <a href="support.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                    <img src="imgs/icons/suport.svg" class="w-5 h-5" alt="">
-                    <span>الدعم الفني</span>
-                </a>
-
-                <div class=" border-purple-200">
-                    <a href="profile_management.html" class="nav-link flex items-center gap-3 p-3 rounded-xl text-gray-700 hover:bg-purple-100">
-                        <img src="imgs/icons/profile.svg" class="w-5 h-5" alt="">
-                        <span>الملف الشخصي</span>
-                    </a>
-                    <a
-    href="#"
-    onclick="openLogoutModal()"
-    class="nav-link flex items-center gap-3 p-3 rounded-xl text-red-500 hover:bg-red-50 mt-2 transition"
->
-    <img src="imgs/icons/logout.svg" class="w-5 h-5" alt="">
-
-    <span>
-        تسجيل الخروج
-    </span>
-</a>
-                </div>
-            </nav>
+        <nav id="sidebar-nav" class="mt-6 px-4 space-y-1"></nav>
         </aside>
 
     <main class="flex-1 md:mr-64 min-h-screen bg-[#F8F9FB] p-3 sm:p-4 md:p-6 lg:p-8" dir="rtl">
@@ -511,31 +445,7 @@
 </script>
     </div>
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('translate-x-full');
-            overlay.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
-        function toggleActions(event) {
-            event.stopPropagation();
-            const allMenus = document.querySelectorAll('.dropdown-actions');
-            const currentMenu = event.currentTarget.nextElementSibling;
-            
-            allMenus.forEach(menu => {
-                if(menu !== currentMenu) menu.classList.remove('show');
-            });
-            currentMenu.classList.toggle('show');
-        }
-
-        window.onclick = function() {
-            document.querySelectorAll('.dropdown-actions').forEach(menu => menu.classList.remove('show'));
-        }
-    </script>
-<!-- LOGOUT MODAL -->
+    <!-- LOGOUT MODAL -->
 <div
     id="logoutModal"
     class="fixed inset-0 z-[999999] hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4 overflow-y-auto"
@@ -622,39 +532,8 @@
     </div>
 
 </div>
-
-<script>
-function openLogoutModal() {
-
-    const modal = document.getElementById("logoutModal");
-
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-
-    document.body.style.overflow = "hidden";
-}
-
-function closeLogoutModal() {
-
-    const modal = document.getElementById("logoutModal");
-
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-
-    document.body.style.overflow = "auto";
-}
-
-// CLOSE WHEN CLICK OUTSIDE
-document
-    .getElementById("logoutModal")
-    .addEventListener("click", function (e) {
-
-        if (e.target === this) {
-
-            closeLogoutModal();
-        }
-
-    });
-</script>
+    <script src="js/legal-nav.js"></script>
+    <script src="js/render-sidebar.js"></script>
+    <script>renderSidebar('employees');</script>
 </body>
 </html>
