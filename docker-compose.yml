@@ -1,0 +1,7 @@
+services:
+  books-admin:
+    build: .
+    container_name: books-admin
+    volumes:
+      - ${DEPLOY_PATH:-./www}:/output
+    command: sh -c "cp -r /site/. /output/ && echo 'Files copied to /output'"
