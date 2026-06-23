@@ -16,12 +16,16 @@ COPY js ./js
 COPY scripts ./scripts
 RUN pnpm run build
 
-# Static files only — configure Nginx on the host to serve /site (or copy via volume)
-FROM alpine:3.20
+FROM nginx:1.27-alpine
 
-WORKDIR /site
+COPY --from=build /app /usr/share/nginx/html
 
-COPY --from=build /app /site
+RUN sed -i 's/index  index.html index.htm;/index  login.html;/' /etc/nginx/conf.d/default.conf && \
+    rm -f /usr/share/nginx/html/package.json \
+    /usr/share/nginx/html/pnpm-lock.yaml \
+    /usr/share/nginx/html/tailwind.config.js && \
+    rm -rf /usr/share/nginx/html/src /usr/share/nginx/html/scripts /usr/share/nginx/html/node_modules
 
-RUN rm -f package.json pnpm-lock.yaml tailwind.config.js && \
-    rm -rf src scripts node_modules
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
