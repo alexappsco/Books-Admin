@@ -1,6 +1,7 @@
 {
   "name": "books",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
     "build:css": "tailwindcss -i ./src/input.css -o ./css/output.css",
